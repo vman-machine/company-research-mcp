@@ -1,0 +1,20 @@
+# Render Blueprint. Click "Deploy to Render" in the README or create a Blueprint
+# from this repo. Free web services sleep after 15 minutes idle and the disk is
+# ephemeral, so saved profiles/reports reset on restart; add a paid disk at /data
+# if you want persistence on Render. Cloudflare Workers (see README) is free and persistent.
+services:
+  - type: web
+    name: company-research-mcp
+    runtime: node
+    rootDir: company-research-mcp
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATA_DIR
+        value: /opt/render/project/src/company-research-mcp/data
+      - key: ACCESS_KEY
+        generateValue: true

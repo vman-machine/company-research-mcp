@@ -1,0 +1,25 @@
+{
+  // Cloudflare Workers deployment. Free plan is enough: Workers + a KV namespace.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "company-research-mcp",
+  "main": "src/worker.ts",
+  "compatibility_date": "2025-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "build": {
+    // Build the two MCP App views (single-file HTML) before bundling the worker.
+    "command": "npm run build:ui"
+  },
+  "kv_namespaces": [
+    {
+      // Profiles and saved reports. No "id" here on purpose: `wrangler deploy` and the
+      // "Deploy to Cloudflare" button provision the namespace. To pin an existing one,
+      // run `npx wrangler kv namespace create RESEARCH_KV` and add its id below.
+      "binding": "RESEARCH_KV"
+    }
+  ],
+  "vars": {
+    // Optional. Set a secret instead for production: npx wrangler secret put ACCESS_KEY
+    // "ACCESS_KEY": ""
+  },
+  "observability": { "enabled": true }
+}

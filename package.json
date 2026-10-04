@@ -1,0 +1,51 @@
+{
+  "name": "company-research-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Company Research MCP App: onboarding, purpose-tailored deep research playbooks, and an interactive report UI for Claude.",
+  "scripts": {
+    "build": "npm run build:ui && npm run build:server",
+    "build:ui": "cross-env INPUT=onboarding.html vite build && cross-env INPUT=report.html vite build && tsx scripts/embed-ui.ts",
+    "build:server": "tsc -p tsconfig.server.json",
+    "dev": "tsx watch src/node.ts",
+    "start": "node dist/server/node.js",
+    "start:stdio": "node dist/server/node.js --stdio",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "test:protocol": "tsx test/protocol.ts",
+    "test:ui": "tsx test/e2e.ts",
+    "harness": "tsx test/harness/serve.ts",
+    "cf:dev": "wrangler dev",
+    "cf:deploy": "wrangler deploy",
+    "harness:build": "cross-env INPUT=test/harness/host.html OUT_DIR=dist/harness vite build && cross-env INPUT=test/harness/sandbox.html OUT_DIR=dist/harness vite build",
+    "test": "npm run test:protocol && npm run test:ui"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.3",
+    "@modelcontextprotocol/ext-apps": "^2.0.3",
+    "@modelcontextprotocol/node": "^2.1.1",
+    "@modelcontextprotocol/server": "^2.3.0",
+    "hono": "^4.13.13",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.3.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "cross-env": "^10.1.0",
+    "playwright": "^1.56.1",
+    "tsx": "^4.23.0",
+    "typescript": "^5.9.0",
+    "vite": "^8.3.2",
+    "vite-plugin-singlefile": "^2.3.3",
+    "wrangler": "^4.147.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
