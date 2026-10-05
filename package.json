@@ -18,7 +18,8 @@
     "cf:dev": "wrangler dev",
     "cf:deploy": "wrangler deploy",
     "harness:build": "cross-env INPUT=test/harness/host.html OUT_DIR=dist/harness vite build && cross-env INPUT=test/harness/sandbox.html OUT_DIR=dist/harness vite build",
-    "test": "npm run test:protocol && npm run test:ui"
+    "test": "npm run test:protocol && npm run test:ui",
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.3",

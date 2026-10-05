@@ -11,10 +11,11 @@
   },
   "kv_namespaces": [
     {
-      // Profiles and saved reports. No "id" here on purpose: `wrangler deploy` and the
-      // "Deploy to Cloudflare" button provision the namespace. To pin an existing one,
-      // run `npx wrangler kv namespace create RESEARCH_KV` and add its id below.
-      "binding": "RESEARCH_KV"
+      // Profiles and saved reports. The "Deploy to Cloudflare" flow replaces this placeholder
+      // id with a freshly provisioned namespace. For a manual deploy run
+      // `npx wrangler kv namespace create RESEARCH_KV` and paste the real id here.
+      "binding": "RESEARCH_KV",
+      "id": "0123456789abcdef0123456789abcdef"
     }
   ],
   "vars": {
