@@ -6,7 +6,6 @@ services:
   - type: web
     name: company-research-mcp
     runtime: node
-    rootDir: company-research-mcp
     plan: free
     buildCommand: npm ci && npm run build
     startCommand: npm start
@@ -15,6 +14,6 @@ services:
       - key: NODE_VERSION
         value: "22"
       - key: DATA_DIR
-        value: /opt/render/project/src/company-research-mcp/data
+        value: /opt/render/project/src/data
       - key: ACCESS_KEY
         generateValue: true

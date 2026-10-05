@@ -22,28 +22,25 @@ MCP Apps render only for **remote connectors** (claude.ai and Claude Desktop). A
 
 **Option A: Cloudflare Workers (recommended: free, always on, persistent storage via KV)**
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/vman-machine/learn-django/tree/claude/happy-mayer-bpdq3e/company-research-mcp)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/vman-machine/company-research-mcp)
 
-The button clones this folder into your account, provisions the `RESEARCH_KV` namespace declared in `wrangler.jsonc`, builds the views and deploys. Or from a terminal:
+The button clones this repository into your account, provisions the `RESEARCH_KV` namespace declared in `wrangler.jsonc`, builds the views and deploys. Or from a terminal:
 
 ```bash
-cd company-research-mcp
 npm install
 npx wrangler login                 # opens the browser once
 npx wrangler deploy                # builds the views, provisions KV, prints https://company-research-mcp.<you>.workers.dev
 npx wrangler secret put ACCESS_KEY # optional but recommended, see Security
 ```
 
-There is also an on-demand GitHub Actions workflow (`.github/workflows/deploy-company-research.yml`): add `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` as repository secrets and run it from the Actions tab.
-
 **Option B: Render (free web service)**
 
-New Web Service → this repo → Root Directory `company-research-mcp` → Build `npm ci && npm run build` → Start `npm start` → add env var `ACCESS_KEY`. Free instances sleep after 15 minutes and the disk is ephemeral, so profiles and reports reset on restart (attach a disk at `DATA_DIR` to keep them). `render.yaml` holds the same settings for a Blueprint (copy it to the repo root to use Blueprints).
+New Web Service → this repo → Build `npm ci && npm run build` → Start `npm start` → add env var `ACCESS_KEY`. Free instances sleep after 15 minutes and the disk is ephemeral, so profiles and reports reset on restart (attach a disk at `DATA_DIR` to keep them). `render.yaml` holds the same settings for a Blueprint.
 
 **Option C: Docker, anywhere**
 
 ```bash
-docker build -t company-research-mcp company-research-mcp
+docker build -t company-research-mcp .
 docker run -p 3000:3000 -v crm-data:/data -e ACCESS_KEY=choose-a-long-random-string company-research-mcp
 ```
 
@@ -79,7 +76,6 @@ Also an MCP prompt, `research_company`, with a `company` argument.
 ## Local development
 
 ```bash
-cd company-research-mcp
 npm install
 npm run build          # builds both views into single-file HTML, embeds them, compiles the server
 npm start              # http://localhost:3000/mcp  (JSON-file storage in ./data)
@@ -102,7 +98,6 @@ For a text-only local connector in Claude Desktop: `node dist/server/node.js --s
 ## How it is built
 
 ```
-company-research-mcp/
 ├── src/server/createServer.ts   tools, views, prompt, server instructions (McpServer factory, one per request)
 ├── src/server/playbooks.ts      purpose playbooks and the research brief builder (the "skill")
 ├── src/server/schemas.ts        Zod contracts: profile and report (also the tool input schemas Claude sees)
