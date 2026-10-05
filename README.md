@@ -24,7 +24,7 @@ MCP Apps render only for **remote connectors** (claude.ai and Claude Desktop). A
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/vman-machine/company-research-mcp)
 
-The button clones this repository into your account, provisions the `RESEARCH_KV` namespace declared in `wrangler.jsonc`, builds the views and deploys. Or from a terminal:
+The button clones this repository into your account, provisions the `RESEARCH_KV` namespace declared in `wrangler.json`, builds the views and deploys. Or from a terminal:
 
 ```bash
 npm install
